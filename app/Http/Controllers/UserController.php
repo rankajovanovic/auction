@@ -18,8 +18,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        \Toastr::error('User has been deleted', null, ["positionClass" => "toast-top-right"]);
 
-        session()->flash('danger', 'User has been deleted');
         return redirect()->back();
     }
 

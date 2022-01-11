@@ -45,10 +45,9 @@ class ItemController extends Controller
     {
         $this->authorize('create', Item::class);
         $data = $request->validated();
-        $data['end_time'] = Carbon::now()->addDays(10);
+        $data['end_time'] = Carbon::now()->addDays(10)->addHour(1);
         auth()->user()->items()->create($data);
-
-        session()->flash('success', 'Item successfuly added');
+        \Toastr::success('Item has been deleted', null, ["positionClass" => "toast-top-right"]);
 
         return back();
     }
@@ -61,7 +60,6 @@ class ItemController extends Controller
      */
     public function show($slug)
     {
-
         $item = Item::findBySlugOrFail($slug);
         $categories = Category::orderBy('name')->get();
 
@@ -78,8 +76,8 @@ class ItemController extends Controller
     {
         $this->authorize('delete', $item);
         $item->delete();
+        \Toastr::error('Item has been deleted', null, ["positionClass" => "toast-top-right"]);
 
-        session()->flash('danger', 'Item has been deleted');
         return redirect()->route('items.my-items');
     }
 
@@ -89,7 +87,7 @@ class ItemController extends Controller
             ->where('active', '=',  '0')
             ->get();
 
-        return view('items.purchased', ['items' => $items]);
+        return view('items.selled', ['items' => $items]);
     }
 
     public function purchased()

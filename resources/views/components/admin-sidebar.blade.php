@@ -18,27 +18,21 @@
   </li>
 
   @if(auth()->user()->userHasRole('Admin'))
-  <hr class="sidebar-divider my-0">
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    admin mode
+  </div>
+
   <!-- Nav Item - Dashboard -->
   <li class="nav-item">
     <a class="nav-link" href="{{route('admin')}}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Admin Dashboard</span></a>
   </li>
-  @endif
 
-  <!-- Divider -->
-  <hr class="sidebar-divider">
-
-  <!-- Heading -->
-  <div class="sidebar-heading">
-    Interface
-  </div>
-
-  @if(auth()->user()->userHasRole('Admin'))
-  <!-- Nav Item - DB Management Collapse Menu -->
   <li class="nav-item">
-
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
       aria-controls="collapseTwo">
       <i class="fas fa-fw fa-cog"></i>
@@ -54,9 +48,16 @@
         <a class="collapse-item" href="{{route('admin.roles')}}">Roles</a>
       </div>
     </div>
-
   </li>
   @endif
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
 
   <!-- Nav Item - Profile Collapse Menu -->
   <li class="nav-item">
@@ -83,7 +84,7 @@
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
+        <h6 class="collapse-header">Item Utilities:</h6>
         <a class="collapse-item" href="{{route('items.create')}}">Add Item</a>
         <a class="collapse-item" href="{{route('items.my-items')}}">Active items</a>
       </div>
@@ -98,7 +99,7 @@
     </a>
     <div id="collapseCart" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
+        <h6 class="collapse-header">Cart Utilities:</h6>
         <a class="collapse-item" href="{{ route('items.selled') }}">Selled items</a>
         <a class="collapse-item" href="{{ route('items.purchased') }}">Purchased items</a>
       </div>

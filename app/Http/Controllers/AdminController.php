@@ -31,7 +31,7 @@ class AdminController extends Controller
 
     public function attach(User $user)
     {
-        session()->flash('success', 'Role attached');
+        \Toastr::success('Role attached', null, ["positionClass" => "toast-top-right"]);
         $user->roles()->attach(request('role'));
 
         return back();
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
     public function detach(User $user)
     {
-        session()->flash('danger', 'Role detached');
+        \Toastr::success('Role detached', null, ["positionClass" => "toast-top-right"]);
         $user->roles()->detach(request('role'));
 
         return back();

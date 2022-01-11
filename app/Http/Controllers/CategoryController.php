@@ -21,7 +21,7 @@ class CategoryController extends Controller
         ]);
 
         Category::create($category);
-        session()->flash('success', 'Successfully added category');
+        \Toastr::success('Successfully added category', null, ["positionClass" => "toast-top-right"]);
 
         return redirect()->back();
     }
@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        session()->flash('danger', 'Category has been deleted');
+        \Toastr::error('Category has been deleted', null, ["positionClass" => "toast-top-right"]);
 
         return redirect()->back();
     }

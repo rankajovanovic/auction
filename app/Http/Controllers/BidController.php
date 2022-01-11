@@ -7,9 +7,20 @@ use App\Models\Bid;
 use App\Http\Requests\BidRequest;
 use App\Models\Item;
 use Illuminate\Support\Facades\Redirect;
+use App\Actions\BidActions\CreateBidAction;
 
 class BidController extends Controller
 {
+
+    private CreateBidAction $createBidAction;
+
+
+    public function __construct(CreateBidAction $createBidAction)
+    {
+        $this->createBidAction = $createBidAction;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +28,11 @@ class BidController extends Controller
      */
     public function index()
     {
-        $bids = Bid::all();
+        $bids = Bid::with('item')->whereHas('item', function ($query) {
+            $query->where('active', '=', '1');
+        })->orderByDesc('created_at')->get();
+
+
         return view('admin.bids', compact('bids'));
     }
 
@@ -30,29 +45,8 @@ class BidController extends Controller
     public function store(BidRequest $request, Item $item)
     {
         $data = $request->validated();
+        $this->createBidAction->execute($item, $data);
 
-        $minPrice = $item['price'];
-        $userId =  auth()->user()->id;
-
-        if ($minPrice >= $data['price']) {
-            session()->flash('danger', 'Your bid must be greater than the item price');
-            return redirect()->back();
-        }
-
-        $check = Bid::where('user_id', '=', $userId)->where('item_id', '=', $item->id)->get();
-        if (!$check->isEmpty()) {
-            session()->flash('danger', 'You are already place bid for this item');
-            return redirect()->back();
-        }
-
-        $data['item_id'] = $item->id;
-        $data['user_id'] = $userId;
-        Bid::create($data);
-
-        $item->price = $data['price'];
-        $item->save();
-
-        session()->flash('success', 'Successfully added bid');
         return redirect()->back();
     }
 
@@ -79,8 +73,8 @@ class BidController extends Controller
     {
         $this->authorize('delete', $bid);
         $bid->delete();
+        \Toastr::error('Bid has been deleted', null, ["positionClass" => "toast-top-right"]);
 
-        session()->flash('danger', 'Bid has been deleted');
         return redirect()->back();
     }
 }

@@ -62,4 +62,16 @@
   </li>
   @endforeach
   @endsection
+
+  @section('sidebar-search')
+  @include('partials.sidebar-search')
+  @endsection
+
+  @section('sidebar-categories')
+  @include('partials.sidebar-categories')
+  @endsection
+
+  @section('sidebar-card')
+  @include('partials.sidebar-card')
+  @endsection
 </x-auction-home>

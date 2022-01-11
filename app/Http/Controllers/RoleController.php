@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+// use Brian2694\Toastr\Toastr;
 
 class RoleController extends Controller
 {
@@ -28,11 +29,10 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $role = $request->validate([
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', 'unique:roles'],
         ]);
-
         Role::create($role);
-        session()->flash('success', 'Successfully created role');
+        \Toastr::success('Successfully created role', null, ["positionClass" => "toast-top-right"]);
 
         return redirect()->back();
     }
@@ -46,7 +46,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        session()->flash('danger', 'Role has been deleted');
+        \Toastr::error('Role has been deleted', null, ["positionClass" => "toast-top-right"]);
 
         return back();
     }

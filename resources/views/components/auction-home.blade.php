@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Blog Home</title>
+  <title>Auction Home</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -17,6 +17,8 @@
   <!-- Custom CSS -->
   <link href="{{ asset('css/auction-home.css') }}" rel="stylesheet">
   <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
+
+  <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 </head>
 
@@ -133,53 +135,18 @@
       <!-- Blog Sidebar Widgets Column -->
       <div class="col-md-4">
         <!-- Search Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Search</h5>
-          <div class="card-body">
-            <form action="{{route('home')}}" method="GET">
-              <div class="input-group">
-                <input type="text" class="form-control bg-light small" placeholder="Search for..." aria-label="Search"
-                  aria-describedby="basic-addon2" name="searchText" value="hi">
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="submit">Go!
-                    <i class="fas fa-search fa-sm"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-
+        @yield('sidebar-search')
 
         <!-- Categories Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Categories</h5>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  @yield('categories')
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        @yield('sidebar-categories')
 
         <!-- Side Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Side Widget</h5>
-          <div class="card-body">
-            You can put anything you want inside of these side widgets. They are easy to use, and feature the new
-            Bootstrap 4 card containers!
-          </div>
-        </div>
-
+        @yield('sidebar-card')
       </div>
 
     </div>
     <!-- /.row -->
-    <hr>
+
   </div>
 
   <!-- Footer -->
@@ -189,7 +156,13 @@
     </div>
     <!-- /.container -->
   </footer>
-
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Ranka 2021/2022</span>
+      </div>
+    </div>
+  </footer>
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -217,37 +190,9 @@
     </div>
   </div>
 
-  <!-- jQuery -->
-  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+  @include('partials.scripts')
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="{{asset('js/sb-admin-2.js')}}"></script>
-
-  <!-- Page level plugins -->
-  <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-
-  <script src="https://cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"
-    type="application/javascript"></script>
-
-  <script type="application/javascript">
-  $('[data-countdown]').each(function() {
-    var $this = $(this);
-    var finalDate = $(this).data('countdown');
-    $this.countdown(finalDate, function(event) {
-      $this.html(event.strftime('%D days %H:%M:%S'));
-    });
-  });
-  </script>
+  {!! Toastr::message() !!}
 
 </body>
 

@@ -27,7 +27,7 @@
             @foreach($bids as $bid)
             <tr>
               <td>{{$bid->user->email}} $</td>
-              <td>{{$bid->price}} $</td>
+              <td>{{$bid->price}}$</td>
               <td>
                 <a href="{{route('items.show', $bid->item->slug )}}">{{$bid->item->name}}</a>
               </td>

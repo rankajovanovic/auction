@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
+  <title>Auction Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -19,6 +19,8 @@
 
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin-2.css')}}" rel="stylesheet">
+
+  <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 </head>
 
@@ -97,16 +99,6 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          @if(session('success'))
-          <div class="alert alert-success mt-4" role="alert">
-            {{session('success')}}
-          </div>
-          @elseif(session('danger'))
-          <div class="alert alert-danger mt-4" role="alert">
-            {{session('danger')}}
-          </div>
-          @endif
-
           <!-- Page Heading -->
           @yield('content')
 
@@ -132,37 +124,9 @@
   </div>
   <!-- End of Page Wrapper -->
 
-  <!-- jQuery -->
-  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+  @include('partials.scripts')
 
-  <!-- Bootstrap Core JavaScript -->
-  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="{{asset('js/sb-admin-2.js')}}"></script>
-
-  <!-- Page level plugins -->
-  <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-
-  <script src="https://cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"
-    type="application/javascript"></script>
-
-  <script type="application/javascript">
-  $('[data-countdown]').each(function() {
-    var $this = $(this);
-    var finalDate = $(this).data('countdown');
-    $this.countdown(finalDate, function(event) {
-      $this.html(event.strftime('%D days %H:%M:%S'));
-    });
-  });
-  </script>
+  {!! Toastr::message() !!}
 
 </body>
 

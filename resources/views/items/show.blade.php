@@ -81,7 +81,7 @@
               PRICE
             </div>
             <div class="card-body text-danger">
-              <h4> {{$item->price}} $</h4>
+              <h4>{{ $item->bids->isNotEmpty() ? $item->bids->max('price') : $item->price }}$</h4>
             </div>
           </div>
         </div>
@@ -97,11 +97,17 @@
                 @csrf
                 <div class="row">
                   <div class="col-xl-9">
-                    <input type="number" min="{{$item->price}}" id="price"
-                      class="form-control @error('price') is-invalid @enderror" value="{{$item->price}}" name="price" />
+                    <input type="number"
+                      min="{{ $item->bids->isNotEmpty() ? $item->bids->max('price')+1 : $item->price+1}}" id="price"
+                      class="form-control @error('price') is-invalid @enderror"
+                      value="{{ $item->bids->isNotEmpty() ? $item->bids->max('price')+1 : $item->price+1}}"
+                      name="price" />
                   </div>
                   <div class="col-xl-3">
-                    <button type="submit" class="btn btn-warning">Add</button>
+                    <button type="submit" class="btn btn-warning" @if(auth()->user()->id == $item->user_id)
+                      disabled
+                      @endif
+                      >Add</button>
                   </div>
                 </div>
               </form>
@@ -125,5 +131,13 @@
     <a href="{{route('items.category', $category->slug)}}">{{$category->name}}</a>
   </li>
   @endforeach
+  @endsection
+
+  @section('sidebar-search')
+  @include('partials.sidebar-search')
+  @endsection
+
+  @section('sidebar-categories')
+  @include('partials.sidebar-categories')
   @endsection
 </x-auction-home>

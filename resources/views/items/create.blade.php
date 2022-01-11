@@ -114,5 +114,6 @@
       </form>
     </div>
   </div>
+
   @endsection
 </x-admin-home>
