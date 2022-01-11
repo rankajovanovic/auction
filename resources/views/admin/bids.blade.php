@@ -29,7 +29,7 @@
               <td>{{$bid->user->email}} $</td>
               <td>{{$bid->price}} $</td>
               <td>
-                <a href="{{route('items.show', [$bid->item->id] )}}">{{$bid->item->name}}</a>
+                <a href="{{route('items.show', $bid->item->slug )}}">{{$bid->item->name}}</a>
               </td>
               <td>
                 <img src="{{$bid->item->image}}" alt="" style="width: 70px;">

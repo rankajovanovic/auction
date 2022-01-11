@@ -8,6 +8,7 @@ use App\Http\Controllers\BidController;
 use App\Http\Controllers\RoleController;
 
 Route::middleware(['role:admin', 'auth'])->group(function () {
+  Route::get('/dashboard', [AdminController::class, 'index'])->name('admin');
   Route::get('/users', [UserController::class, 'index'])->name('admin.users');
   Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('admin.users.delete');
   Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories');

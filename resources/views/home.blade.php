@@ -1,7 +1,11 @@
 <x-auction-home>
   @section('content')
   <h1 class="my-4">All items
-    <small></small>
+    <small>
+      @if(isset($category))
+      - {{$category->name}}
+      @endif
+    </small>
   </h1>
 
   <div class="row">
@@ -22,7 +26,7 @@
           <span>Price: {{$item->price}} $</span>
           <hr class="sidebar-divider">
           <span class="pr-2"><small data-countdown="{{ $item->end_time }}"></small></span>
-          <a href="{{route('items.show', $item->id )}}" class="btn btn-primary btn-sm">More &rarr;</a>
+          <a href="{{route('items.show', $item->slug )}}" class="btn btn-primary btn-sm">More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
           <small>
@@ -36,23 +40,25 @@
     </div>
     @endforeach
 
+    @if(count($items) == 0)
+    <div>
+      There are no items to show in this view.
+    </div>
+    @endif
+    <!-- Pagination -->
+
   </div>
 
-  <!-- Pagination -->
-  <ul class="pagination justify-content-center mb-4">
-    <li class="page-item">
-      <a class="page-link" href="#">&larr; Older</a>
-    </li>
-    <li class="page-item disabled">
-      <a class="page-link" href="#">Newer &rarr;</a>
-    </li>
-  </ul>
+  <div class="main-navigation mt-4">
+    {{ $items->links("pagination::bootstrap-4") }}
+  </div>
+
   @endsection
 
   @section('categories')
   @foreach($categories as $category)
   <li>
-    <a href="{{route('items.category', $category->id)}}">{{$category->name}}</a>
+    <a href="{{route('items.category', $category->slug)}}">{{$category->name}}</a>
   </li>
   @endforeach
   @endsection

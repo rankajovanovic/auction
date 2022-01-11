@@ -23,32 +23,40 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $itemQuery = Item::query();
-        // $itemQuery->with('user', 'offers');
+        if (isset($_GET['searchText'])) {
 
-        // $search = $request->header('searchText');
-        // $itemQuery->where(function ($query) use ($search) {
-        //     $query->where('name', 'like', '%' . $search . '%')
-        //         ->orWhere('description', 'like', '%' . $search . '%')
-        //         ->orwhereHas('user', function ($que) use ($search) {
-        //             $que->where('first_name', 'like', '%' . $search . '%')
-        //                 ->orWhere('last_name', 'like', '%' . $search . '%');
-        //         });
-        // });
+            $itemQuery = Item::query();
+            $itemQuery->with('user');
+            $search = $_GET['searchText'];
 
-        // $itemQuery->where('active', 1);
-        // $items = $itemQuery->orderByDesc('created_at')->get();
+            $itemQuery->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orwhereHas('user', function ($que) use ($search) {
+                        $que->where('first_name', 'like', '%' . $search . '%')
+                            ->orWhere('last_name', 'like', '%' . $search . '%');
+                    });
+            });
 
-        $items = Item::orderBy('created_at', 'desc')->paginate(20);
+            $itemQuery->where('active', 1);
+            $items = $itemQuery->orderByDesc('created_at')->paginate(9);
+        }
+
+        if (empty($_GET['searchText'])) {
+            $items = Item::where('active', 1)->orderByDesc('created_at')->paginate(9);
+        }
+
         $categories = Category::orderBy('name')->get();
         return view('home', ['items' => $items, 'categories' => $categories]);
     }
 
-    public function show(Category $category)
+    public function show($slug)
     {
-        $items = Item::all();
-        return view('home', compact('items'));
+        $category = Category::findBySlugOrFail($slug);
+        $items = Item::where('category_id', $category->id)->paginate(9);
+        $categories = Category::orderBy('name')->get();
+        return view('home', ['items' => $items, 'categories' => $categories, 'category' => $category]);
     }
 }

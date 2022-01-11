@@ -9,6 +9,7 @@
         <table class="table table-bordered" id="itemsTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th>Id</th>
               <th>Name</th>
               <th>Price</th>
               <th>Image</th>
@@ -16,14 +17,17 @@
               <th>Item owner</th>
               <th>Start date</th>
               <th>End time</th>
+              <th>Bids</th>
+              <th>Active</th>
               <th>Del</th>
             </tr>
           </thead>
           <tbody>
             @foreach($items as $item)
             <tr>
+              <td>{{$item->id}}</td>
               <td>
-                <a href="{{route('items.show', [$item->id] )}}">{{$item->name}}</a>
+                <a href="{{route('items.show', $item->slug )}}">{{$item->name}}</a>
               </td>
               <td>{{$item->price}} $</td>
               <td>
@@ -34,6 +38,14 @@
               </td>
               <td>{{$item->created_at->format('Y-m-d')}}</td>
               <td data-countdown="{{ $item->end_time }}"></td>
+              <td>
+                @if(isset($item->bids))
+                @foreach($item->bids as $bid)
+                <small> {{$bid->price}}$</small><br>
+                @endforeach
+                @endif
+              </td>
+              <td>{{$item->active}}</td>
               <td>
                 <form action="{{route('items.delete', $item->id)}}" method="post">
                   <input type="hidden" name="_method" value="delete" />

@@ -60,17 +60,6 @@
               @enderror
             </div>
 
-            <!-- Slug input -->
-            <div class="form-outline mt-3">
-              <input class="form-control @error('slug') is-invalid @enderror" type="text" name="slug" id="slug"
-                placeholder="Role slug">
-              @error('slug')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-            </div>
-
             <!-- Submit btn -->
             <div class="d-flex justify-content-center">
               <button type="submit" class="btn btn-success mt-4 ">Add</button>

@@ -11,24 +11,11 @@
         <div class="row">
 
           <!-- Name input -->
-          <div class="col-5">
+          <div class="col-10">
             <div class="form-outline">
               <input type="text" id="name" class="form-control @error('name') is-invalid @enderror" name="name"
                 placeholder="Category name" />
               @error('name')
-              <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-              </span>
-              @enderror
-            </div>
-          </div>
-
-          <!-- Slug input -->
-          <div class="col-5">
-            <div class="form-outline">
-              <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror" name="slug"
-                placeholder="Category slug" />
-              @error('slug')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>

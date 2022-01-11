@@ -22,7 +22,7 @@
             @foreach($users as $user)
             <tr>
               <td>
-                <a href="{{ route('users.profile', $user->id) }}">{{$user->first_name}}</a>
+                <a href="{{ route('users.profile', $user->id) }}">{{$user->first_name}} {{$user->last_name}}</a>
               </td>
               <td>{{$user->email}}</td>
               <td>

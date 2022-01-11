@@ -27,11 +27,10 @@ class ItemRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
-            'payment' => 'required',
-            'delivery' => 'required',
+            'payment' => 'required|string',
+            'delivery' => 'required|string',
             'image' => 'nullable',
             'category_id' => 'nullable',
-
         ];
     }
 }

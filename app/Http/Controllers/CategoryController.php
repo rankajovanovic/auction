@@ -18,12 +18,11 @@ class CategoryController extends Controller
     {
         $category = $request->validate([
             'name' => ['required', 'max:255'],
-            'slug' => ['required'],
         ]);
 
         Category::create($category);
-
         session()->flash('success', 'Successfully added category');
+
         return redirect()->back();
     }
 

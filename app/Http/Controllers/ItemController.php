@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\User;
 use Illuminate\Support\Carbon;
 use App\Http\Requests\ItemRequest;
 use App\Models\Category;
@@ -32,6 +31,7 @@ class ItemController extends Controller
     public function create()
     {
         $categories = Category::orderBy('name')->get();
+
         return view('items.create', compact('categories'));
     }
 
@@ -46,7 +46,8 @@ class ItemController extends Controller
         $this->authorize('create', Item::class);
         $data = $request->validated();
         $data['end_time'] = Carbon::now()->addDays(10);
-        $item = auth()->user()->items()->create($data);
+        auth()->user()->items()->create($data);
+
         session()->flash('success', 'Item successfuly added');
 
         return back();
@@ -58,9 +59,13 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($slug)
     {
-        return view('items.show', ['item' => $item]);
+
+        $item = Item::findBySlugOrFail($slug);
+        $categories = Category::orderBy('name')->get();
+
+        return view('items.show', ['item' => $item, 'categories' => $categories]);
     }
 
     /**
@@ -84,7 +89,7 @@ class ItemController extends Controller
             ->where('active', '=',  '0')
             ->get();
 
-        return response()->json($items);
+        return view('items.purchased', ['items' => $items]);
     }
 
     public function purchased()

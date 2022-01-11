@@ -11,12 +11,21 @@
   <!-- Divider -->
   <hr class="sidebar-divider my-0">
 
-  <!-- Nav Item - Dashboard -->
   <li class="nav-item">
     <a class="nav-link" href="{{route('home')}}">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span></a>
+      <i class="fas fa-home"></i>
+      <span>Home</span></a>
   </li>
+
+  @if(auth()->user()->userHasRole('Admin'))
+  <hr class="sidebar-divider my-0">
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item">
+    <a class="nav-link" href="{{route('admin')}}">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Admin Dashboard</span></a>
+  </li>
+  @endif
 
   <!-- Divider -->
   <hr class="sidebar-divider">
@@ -90,8 +99,8 @@
     <div id="collapseCart" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="{{route('items.purchased')}}">Selled items</a>
-        <a class="collapse-item" href="{{route('items.purchased')}}">Purchased items</a>
+        <a class="collapse-item" href="{{ route('items.selled') }}">Selled items</a>
+        <a class="collapse-item" href="{{ route('items.purchased') }}">Purchased items</a>
       </div>
     </div>
   </li>

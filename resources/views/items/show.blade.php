@@ -118,4 +118,12 @@
     </div>
   </div>
   @endsection
+
+  @section('categories')
+  @foreach($categories as $category)
+  <li>
+    <a href="{{route('items.category', $category->slug)}}">{{$category->name}}</a>
+  </li>
+  @endforeach
+  @endsection
 </x-auction-home>
