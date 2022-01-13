@@ -19,7 +19,7 @@
             <tr>
               <td> <a href="{{route('items.show', [$item->id] )}}">{{$item->name}}</a>
               </td>
-              <td>{{$item->price}} $</td>
+              <td>{{$item->bid_price}} $</td>
               <td>{{$item->end_time}}</td>
             </tr>
             @endforeach

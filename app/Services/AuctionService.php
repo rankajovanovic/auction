@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Item;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class AuctionService
 {
@@ -29,15 +30,16 @@ class AuctionService
 
   public function chooseTheWinnerOfAuction($item)
   {
-    $item->bids->max('price')->isEmpty() ?  $winner = null :   $winner = $item->bids->max('price');
+    $winner = $item->bids()->orderByDesc('price')->first();
+
     return $winner;
   }
 
   public function sellItemToTheWinner($item, $winner)
   {
-    if ($winner) {
-      $item->buyer_id = $winner->user_id;
-      $item->bid_price = $winner->price;
+    if ($winner !== null) {
+      $item->buyer_id = $winner['user_id'];
+      $item->bid_price = $winner['price'];
     }
 
     $item->active = 0;

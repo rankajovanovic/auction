@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Bid;
@@ -31,16 +29,16 @@ class AdminController extends Controller
 
     public function attach(User $user)
     {
-        \Toastr::success('Role attached', null, ["positionClass" => "toast-top-right"]);
         $user->roles()->attach(request('role'));
+        \Toastr::success('Role attached', null, ["positionClass" => "toast-top-right"]);
 
         return back();
     }
 
     public function detach(User $user)
     {
-        \Toastr::success('Role detached', null, ["positionClass" => "toast-top-right"]);
         $user->roles()->detach(request('role'));
+        \Toastr::success('Role detached', null, ["positionClass" => "toast-top-right"]);
 
         return back();
     }

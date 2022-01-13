@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Bid;
 use App\Http\Requests\BidRequest;
 use App\Models\Item;
-use Illuminate\Support\Facades\Redirect;
 use App\Actions\BidActions\CreateBidAction;
 
 class BidController extends Controller
@@ -14,12 +12,10 @@ class BidController extends Controller
 
     private CreateBidAction $createBidAction;
 
-
     public function __construct(CreateBidAction $createBidAction)
     {
         $this->createBidAction = $createBidAction;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -31,7 +27,6 @@ class BidController extends Controller
         $bids = Bid::with('item')->whereHas('item', function ($query) {
             $query->where('active', '=', '1');
         })->orderByDesc('created_at')->get();
-
 
         return view('admin.bids', compact('bids'));
     }
@@ -58,7 +53,11 @@ class BidController extends Controller
      */
     public function show()
     {
-        $bids = auth()->user()->bids;
+        // $bids = auth()->user()->bids;
+        $bids = Bid::with('item')->whereHas('item', function ($query) {
+            $query->where('active', '=', '1');
+        })->where('user_id', '=', auth()->user()->id)
+            ->orderByDesc('created_at')->get();
 
         return view('items.my-bids', compact('bids'));
     }

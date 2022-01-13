@@ -20,7 +20,7 @@ class UpdateUserController extends Controller
     public function index(User $user)
     {
         $roles = Role::all();
-        return view('users.profile')->with(['user' => $user, 'roles' => $roles]);
+        return view('users.settings')->with(['user' => $user, 'roles' => $roles]);
     }
 
     public function update(User $user)

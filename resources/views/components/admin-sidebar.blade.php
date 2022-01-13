@@ -5,7 +5,7 @@
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-laugh-wink"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Menu<sup>v1</sup></div>
+    <div class="sidebar-brand-text mx-3">Menu<sup></sup></div>
   </a>
 
   <!-- Divider -->
@@ -69,8 +69,8 @@
     <div id="collapseProfile" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Change your info:</h6>
-        <a class="collapse-item" href="{{ route('users.profile', auth()->user()->id) }}">Profile</a>
-        <a class="collapse-item" href="{{ route('users.settings') }}">Settings</a>
+        <a class="collapse-item" href="{{ route('users.profile')}}">Profile</a>
+        <a class="collapse-item" href="{{ route('users.settings', auth()->user()->id)}}">Settings</a>
       </div>
     </div>
   </li>

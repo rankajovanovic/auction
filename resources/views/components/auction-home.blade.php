@@ -22,12 +22,13 @@
 
 </head>
 
-<body>
+<body style="background-color: #f8f9fc;">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand navbar-light bg-white fixed-top topbar mb-5 static-top shadow">
+  <nav class=" navbar navbar-expand navbar-light bg-white fixed-top topbar mb-5 static-top shadow">
     <div class="container">
-      <a class="navbar-brand text-primary" href="{{route('home')}}">Web S i t e</a>
+      <img src="{{asset('/images/brand/icon.png')}}" width="50" height="50" alt="">
+      <a class="navbar-brand " href="{{route('home')}}"><strong>Auction</strong>Site</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -35,13 +36,14 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{{route('home')}}">Home
+            <a class="nav-link active" href="{{route('home')}}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
           @if(Auth::check())
           <li class="nav-item">
-            <a class="nav-link" href="{{route('items.create')}}">Add item</a>
+            <a class="nav-link" href="{{route('items.create')}}">Add
+              item</a>
           </li>
 
           <div class="topbar-divider d-none d-sm-block"></div>
@@ -61,13 +63,13 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="{{ route('users.profile', auth()->user()->id) }}">
+              <a class="dropdown-item" href="{{ route('users.profile') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-person-fill fa-sm fa-fw mr-2 text-gray-600" viewBox="0 0 16 16">
                   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>Profile
               </a>
-              <a class="dropdown-item" href="{{ route('users.settings') }}">
+              <a class="dropdown-item" href="{{ route('users.settings', auth()->user()->id) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-gear fa-sm fa-fw mr-2 text-gray-600" viewBox="0 0 16 16">
                   <path
@@ -149,20 +151,10 @@
 
   </div>
 
+
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Ranka 2021/2022</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-  <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-      <div class="copyright text-center my-auto">
-        <span>Copyright &copy; Ranka 2021/2022</span>
-      </div>
-    </div>
-  </footer>
+  @include('partials.footer')
+  <!-- End of Footer -->
 
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

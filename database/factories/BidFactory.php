@@ -17,7 +17,7 @@ class BidFactory extends Factory
     {
         return [
             'user_id' => User::all()->random()->id,
-            'price' => $this->faker->numberBetween(10000, 50000),
+            'price' => $this->faker->numberBetween(1000, 5000),
             'item_id' => Item::all()->random()->id,
         ];
     }

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes, HasFactory;
+    use HasApiTokens, Notifiable, HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +50,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Item::class);
     }
+
     public function bids()
     {
         return $this->hasMany(Bid::class);

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-// use Brian2694\Toastr\Toastr;
 
 class RoleController extends Controller
 {
@@ -17,6 +15,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
+
         return view('admin.roles', compact('roles'));
     }
 

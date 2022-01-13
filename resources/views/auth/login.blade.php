@@ -1,7 +1,7 @@
 <x-auction-home>
   @section('content')
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="min-height:600px">
 
       <div class="col-xl-10 col-lg-12 col-md-9">
 

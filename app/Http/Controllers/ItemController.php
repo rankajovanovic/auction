@@ -18,8 +18,7 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $items = Item::where('user_id', '=', Auth::user()->id)
-            ->get();
+        $items = Item::where('user_id', '=', Auth::user()->id)->where('active', '=', '1')->get();
 
         return view('items.my-items', ['items' => $items]);
     }
@@ -45,7 +44,7 @@ class ItemController extends Controller
     {
         $this->authorize('create', Item::class);
         $data = $request->validated();
-        $data['end_time'] = Carbon::now()->addDays(10)->addHour(1);
+        $data['end_time'] = Carbon::now()->addDays(10);
         auth()->user()->items()->create($data);
         \Toastr::success('Item has been deleted', null, ["positionClass" => "toast-top-right"]);
 

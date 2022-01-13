@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Actions\UserActions\GetUserProfileDataAction;
 
 class UserController extends Controller
 {
+
+    protected GetUserProfileDataAction $getUserProfileDataAction;
+
+    public function __construct(GetUserProfileDataAction $getUserProfileDataAction)
+    {
+        $this->getUserProfileDataAction = $getUserProfileDataAction;
+    }
+
     public function index()
     {
-        $users = User::all();
-        $roles = Role::all();
-        return view('admin.users', ['users' => $users, 'roles' => $roles])->with('permissions');
+        return view('admin.users', ['users' => User::all(), 'roles' => Role::all()])->with('permissions');
     }
 
     public function destroy(User $user)
@@ -23,8 +29,10 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function settings()
+    public function profile()
     {
-        return view('users.settings');
+        $data = $this->getUserProfileDataAction->execute();
+
+        return view('users.profile', compact('data'));
     }
 }

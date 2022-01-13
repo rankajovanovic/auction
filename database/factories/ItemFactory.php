@@ -19,13 +19,13 @@ class ItemFactory extends Factory
         return [
             'name' => $this->faker->text(15),
             'description' => $this->faker->paragraph(2, true),
-            'price' => $this->faker->numberBetween(20, 20000),
+            'price' => $this->faker->numberBetween(5, 999),
             'payment' => $this->faker->randomElement(['card', 'cash']),
             'delivery' => $this->faker->randomElement(['fast', 'regular']),
             'image' => $this->faker->imageUrl('300', '300'),
             'user_id' => User::all()->random()->id,
             'category_id' => Category::all()->random()->id,
-            'end_time' => $this->faker->dateTimeBetween('-3 days', '+1 days')
+            'end_time' => $this->faker->dateTimeBetween('-20 days', '+6 days')
         ];
     }
 }
