@@ -43,6 +43,6 @@ class GetUserProfileDataAction
       'items' => $items
     ];
 
-    return $data;;
+    return $data;
   }
 }

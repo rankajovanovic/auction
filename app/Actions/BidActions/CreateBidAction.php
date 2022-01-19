@@ -22,7 +22,7 @@ class CreateBidAction
       return;
     }
 
-    if ($this->isBidHigherThenThePrice($item, $data)) {
+    if ($this->isBidHigherThanThePrice($item, $data)) {
 
       $data['item_id'] = $item->id;
       $data['user_id'] = auth()->user()->id;
@@ -36,7 +36,7 @@ class CreateBidAction
     return;
   }
 
-  public function isBidHigherThenThePrice($item, $data): bool
+  public function isBidHigherThanThePrice($item, $data): bool
   {
     $item->bids ? $minPrice = $item->bids->max('price') : $minPrice = $item->price;
 
