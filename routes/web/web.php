@@ -23,10 +23,6 @@ use App\Http\Controllers\ItemController;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::get('/search', [HomeController::class, 'index'])->name('search');
 Route::get('/category/{slug}', [HomeController::class, 'show'])->name('items.category');
 Route::get('/{slug}', [ItemController::class, 'show'])->name('items.show');
-
-
-// Route::middleware('auth')->group(function () {
-// });

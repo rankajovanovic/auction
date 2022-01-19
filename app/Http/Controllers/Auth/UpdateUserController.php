@@ -25,6 +25,7 @@ class UpdateUserController extends Controller
 
     public function update(User $user)
     {
+        $this->authorize('update', $user);
         $inputs = request()->validate([
             'username' => ['required', 'string', 'max:255', 'alpha_dash'],
             'first_name' => ['required', 'string', 'max:255'],

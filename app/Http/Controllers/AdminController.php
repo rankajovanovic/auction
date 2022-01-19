@@ -23,6 +23,7 @@ class AdminController extends Controller
     public function getItems()
     {
         $items = Item::all();
+        // $items = Item::where('active', '=', '1')->get();
 
         return view('admin.items')->with(['items' => $items]);
     }

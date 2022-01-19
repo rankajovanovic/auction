@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(20)->create();
-        \App\Models\Item::factory(100)->create();
+        \App\Models\Item::factory(200)->create();
         \App\Models\Bid::factory(500)->create();
 
         $roles = Role::all();

@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Item;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ItemPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -18,29 +17,18 @@ class ItemPolicy
      */
     public function viewAny(User $user)
     {
-        //
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function active(Item $item)
-    {
-        return ($item->active == 1);
-    }
-    /**
-     * Determine whether the user can view the model.
-     *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Item $item)
+    public function view(User $user, User $model)
     {
-        return $user->userHasRole('admin') ?: $user->id === $item->user_id;
+        return $user->userHasRole('admin') ?: $user->id == $model->id;
     }
 
     /**
@@ -51,40 +39,41 @@ class ItemPolicy
      */
     public function create(User $user)
     {
-        return $user->is($user);
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Item $item)
+    public function update(User $user, User $model)
     {
+        return $user->userHasRole('admin') ?: $user->id == $model->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Item $item)
+    public function delete(User $user, User $model)
     {
-        return $user->userHasRole('admin') ?: $user->id === $item->user_id;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Item $item)
+    public function restore(User $user, User $model)
     {
         //
     }
@@ -93,10 +82,10 @@ class ItemPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Item $item)
+    public function forceDelete(User $user, User $model)
     {
         //
     }

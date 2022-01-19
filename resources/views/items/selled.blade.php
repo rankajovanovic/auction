@@ -11,13 +11,13 @@
             <tr>
               <th>Name</th>
               <th>Price</th>
-              <th>Purchased time</th>
+              <th>Selled time</th>
             </tr>
           </thead>
           <tbody>
             @foreach($items as $item)
             <tr>
-              <td> <a href="{{route('items.show', [$item->id] )}}">{{$item->name}}</a>
+              <td> <a href="{{route('items.show', $item->slug )}}">{{$item->name}}</a>
               </td>
               <td>{{$item->price}} $</td>
               <td>{{$item->end_time}}</td>

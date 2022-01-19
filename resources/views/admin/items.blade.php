@@ -15,7 +15,7 @@
               <th>Price</th>
               <th>Category</th>
               <th>Item owner</th>
-              <th>Start date</th>
+              <th>Start time</th>
               <th>End time</th>
               <th>Bids</th>
               <th>Item buyer</th>
@@ -33,7 +33,7 @@
               <td>
                 <a href="{{route('items.show', $item->slug )}}">{{$item->name}}</a>
               </td>
-              <td>{{$item->price}}$</td>
+              <td>${{$item->price}}</td>
               <td>{{$item->category ? $item->category->name : 'Uncategorized'}}</td>
               <td>
                 @if(!empty($item->user))
@@ -41,7 +41,7 @@
                 <small>{{$item->user->email}} </small>
                 @endif
               </td>
-              <td>{{$item->created_at->format('Y-m-d')}}</td>
+              <td>{{$item->created_at->diffForhumans()}}</td>
               <td data-countdown="{{$item->end_time}}"></td>
               <td>
                 @if($item->bids->isNotEmpty())
@@ -52,6 +52,8 @@
               </td>
               <td>
                 @if($item->buyer_id)
+                <a href="{{ route('users.settings', $item->buyer->id) }}">{{$item->buyer->first_name}}
+                  {{$item->buyer->last_name}}</a>
                 {{$item->buyer->first_name}} {{$item->buyer->last_name}} <br>
                 <small>{{$item->user->email}} </small>
                 @endif

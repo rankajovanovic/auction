@@ -15,7 +15,8 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')
+                ->onDelete('cascade');
             $table->string('name');
             $table->string('description');
             $table->integer('price');
@@ -24,7 +25,8 @@ class CreateItemsTable extends Migration
             $table->string('delivery');
             $table->string('image')->nullable();
             $table->dateTime('end_time');
-            $table->foreignId('buyer_id')->nullable()->constrained('users');
+            $table->foreignId('buyer_id')->nullable()->constrained('users')
+                ->onDelete('cascade');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

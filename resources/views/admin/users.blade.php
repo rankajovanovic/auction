@@ -9,18 +9,21 @@
         <table class="table table-bordered" id="usersTable" width="100%" cellspacing="0">
           <thead>
             <tr>
+              <th>Id</th>
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
               <th>Permissions</th>
+              <th>Number of items</th>
+              <th>Number of bids</th>
               <th>Created at</th>
               <th>Delete</th>
-              <th>Deleted at</th>
             </tr>
           </thead>
           <tbody>
             @foreach($users as $user)
             <tr>
+              <td>{{$user->id}}</td>
               <td>
                 <a href="{{ route('users.profile', $user->id) }}">{{$user->first_name}} {{$user->last_name}}</a>
               </td>
@@ -37,6 +40,12 @@
                 {{$per->name}}
                 @endforeach
               </td>
+              <td>
+                {{count($user->items)}}
+              </td>
+              <td>
+                {{count($user->bids)}}
+              </td>
               <td>{{$user->created_at->diffForhumans()}}</td>
               <td>
                 <form action="{{route('admin.users.delete', $user->id)}}" method="post">
@@ -47,8 +56,6 @@
                   </button>
                 </form>
               </td>
-              <td></td>
-
             </tr>
             @endforeach
           </tbody>

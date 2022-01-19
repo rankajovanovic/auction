@@ -71,6 +71,12 @@ class BidController extends Controller
     public function destroy(Bid $bid)
     {
         $this->authorize('delete', $bid);
+        if ($bid->item->active == 0) {
+            \Toastr::error('Error. Bid does not exist', null, ["positionClass" => "toast-top-right"]);
+
+            return redirect()->back();
+        }
+
         $bid->delete();
         \Toastr::error('Bid has been deleted', null, ["positionClass" => "toast-top-right"]);
 

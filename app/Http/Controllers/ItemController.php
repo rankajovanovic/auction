@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Requests\ItemRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Bid;
 
 class ItemController extends Controller
 {
@@ -61,8 +62,13 @@ class ItemController extends Controller
     {
         $item = Item::findBySlugOrFail($slug);
         $categories = Category::orderBy('name')->get();
+        $userBid = '';
+        if (auth()->user()) {
+            $userBid = Bid::where('item_id', '=', $item->id)
+                ->where('user_id', '=', auth()->user()->id)->first();
+        }
 
-        return view('items.show', ['item' => $item, 'categories' => $categories]);
+        return view('items.show', ['item' => $item, 'categories' => $categories, 'userBid' => $userBid]);
     }
 
     /**

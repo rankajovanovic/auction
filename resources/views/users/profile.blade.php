@@ -9,35 +9,40 @@
             <div class="col-auto">
               <i class="fas fa-4x fa-id-card-alt text-primary"></i>
             </div>
-            <div class="col ml-4">
+            <div class="col ml-5">
               <div class="h6 mb-0 font-weight-bold text-gray-800">
                 <div class="text-s font-weight-bold text-primary text-uppercase mb-1">Profile</div>
 
                 <div>
                   <small>Name:</small>
-                  {{auth()->user()->first_name}} {{auth()->user()->last_name}}
+                  {{$user->first_name}} {{$user->last_name}}
                 </div>
 
                 <div>
                   <small>Email:</small>
-                  {{auth()->user()->email}}
+                  {{$user->email}}
                 </div>
 
                 <div>
                   <small>Role:</small>
-                  @foreach(auth()->user()->roles as $role)
-                  @if(auth()->user()->userHasRole($role->name))
+                  @foreach($user->roles as $role)
+                  @if($user->userHasRole($role->name))
                   {{$role->name}};
                   @endif
                   @endforeach
                 </div>
               </div>
             </div>
-
+            @can('view', $user)
+            <div class="col-auto">
+              <a class="btn" href="{{ route('users.settings', $user->id)}}"> <i class="fas fa-2x fa-edit"></i> </a>
+            </div>
+            @endcan
           </div>
         </div>
       </div>
     </div>
+    @if(auth()->user()->userHasRole('Super Admin') or $user->id == auth()->id() )
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-2 col-md-6 mb-4">
       <div class="card border-left-warning shadow h-100 py-2">
@@ -87,6 +92,7 @@
         </div>
       </div>
     </div>
+    @endif
   </div>
 
   <div class="row">
@@ -179,5 +185,65 @@
       </div>
     </div>
   </div>
+
+
+  @if($data['items']->isNotEmpty())
+  <section class="pt-1 pb-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h3 class="mb-3">Items </h3>
+        </div>
+        @if(count($data['items']) > 3)
+        <div class="col-6 text-right">
+          <a class="btn btn-primary mb-3 mr-1" href="#profilecarusel" role="button" data-slide="prev">
+            <i class="fa fa-arrow-left"></i>
+          </a>
+          <a class="btn btn-primary mb-3 " href="#profilecarusel" role="button" data-slide="next">
+            <i class="fa fa-arrow-right"></i>
+          </a>
+        </div>
+        @endif
+        <div class="col-12">
+          <div id="profilecarusel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              @foreach ($data['items']->chunk(3) as $itemsCollection)
+              <div class="carousel-item {{$loop->iteration == 1 ? 'active' : ''}}">
+                <div class="row">
+                  @foreach ($itemsCollection as $item)
+                  <div class="col-md-4 mb-3">
+                    <div class="card">
+                      <div class="" style="height:250px">
+                        @if($item->image)
+                        <img class="card-img-top img-fluid" src="{{$item->image}}" alt="Card image cap"
+                          style="max-height:250px">
+                        @else
+                        <img class="card-img-top" src="http://placehold.it/150x60" alt="Card image cap">
+                        @endif
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <a href="{{route('items.show', $item->slug )}}">{{$item->name}}</a>
+                        </h5>
+                        <div class="row">
+                          <div class="col">
+                            <span>
+                              {{ $item->bids->isNotEmpty() ? $item->bids->max('price') : $item->price }}$</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  @endforeach
+                </div>
+              </div>
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  @endif
   @endsection
 </x-admin-home>

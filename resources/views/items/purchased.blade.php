@@ -17,7 +17,7 @@
           <tbody>
             @foreach($items as $item)
             <tr>
-              <td> <a href="{{route('items.show', [$item->id] )}}">{{$item->name}}</a>
+              <td> <a href="{{route('items.show', $item->slug )}}">{{$item->name}}</a>
               </td>
               <td>{{$item->bid_price}} $</td>
               <td>{{$item->end_time}}</td>

@@ -14,10 +14,12 @@
         <table class="table table-bordered" id="bidsTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>Email</th>
+              <th>Id</th>
               <th>Bid</th>
               <th>Item name</th>
               <th>Image</th>
+              <th>Bid owner</th>
+              <th>Bid owner email</th>
               <th>Item owner</th>
               <th>End time</th>
               <th>Del</th>
@@ -26,14 +28,16 @@
           <tbody>
             @foreach($bids as $bid)
             <tr>
-              <td>{{$bid->user->email}} $</td>
-              <td>{{$bid->price}}$</td>
+              <td>{{$bid->id}}</td>
+              <td> ${{$bid->price}}</td>
               <td>
                 <a href="{{route('items.show', $bid->item->slug )}}">{{$bid->item->name}}</a>
               </td>
               <td>
                 <img src="{{$bid->item->image}}" alt="" style="width: 70px;">
               </td>
+              <td>{{$bid->user->first_name}} {{$bid->user->last_name}}</td>
+              <td>{{$bid->user->email}}</td>
               <td>
                 {{$bid->item->user->email}}
               </td>

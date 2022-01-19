@@ -7,6 +7,7 @@
 -   php artisan migrate
 -   php artisan db:seed
 -   php artisan serve
+-   php artisan schedule:work
 -   login: <br>
     email: admin@email.com <br>
     pass: password

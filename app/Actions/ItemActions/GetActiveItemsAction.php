@@ -12,23 +12,44 @@ class GetActiveItemsAction
   {
 
     $itemQuery = Item::query();
-    $itemQuery->with('user');
-    $search = $request->get('searchText');
+    $itemQuery->with('user', 'bids');
 
-    $itemQuery->where(function ($query) use ($search) {
-      $query->where('name', 'like', '%' . $search . '%')
-        ->orWhere('description', 'like', '%' . $search . '%')
-        ->orwhereHas('user', function ($que) use ($search) {
-          $que->where('first_name', 'like', '%' . $search . '%')
-            ->orWhere('last_name', 'like', '%' . $search . '%');
-        });
-    });
+    if ($request->get('searchText')) {
+      $search = $request->get('searchText');
+
+      $itemQuery->where(function ($query) use ($search) {
+        $query->where('name', 'like', '%' . $search . '%')
+          ->orWhere('description', 'like', '%' . $search . '%')
+          ->orwhereHas('user', function ($que) use ($search) {
+            $que->where('first_name', 'like', '%' . $search . '%')
+              ->orWhere('last_name', 'like', '%' . $search . '%')
+              ->orWhere('username', 'like', '%' . $search . '%');
+          });
+      });
+    }
 
     $itemQuery->where('active', 1);
     $items = $itemQuery->orderByDesc('created_at')->paginate(9);
 
+    $popularItems = Item::with('bids')
+      ->where('active', 1)
+      ->withCount('bids')
+      ->orderBy('bids_count', 'desc')
+      ->limit(9)
+      ->get();
+    //dd($popularItems);
+
+    $mostExpensiveItems = Item::with('bids')
+      ->where('active', 1)
+      ->leftJoin('bids', 'items.id', '=', 'bids.item_id')
+      ->select(['items.*', \DB::raw('IF(bids.id IS NOT NULL, max(bids.price), items.price) as max_bid')])
+      ->groupBy('items.id')
+      ->orderBy('max_bid', 'desc')
+      ->limit(9)
+      ->get();
+
     $categories = Category::orderBy('name')->get();
 
-    return (['items' => $items, 'categories' => $categories, 'search' =>  $search]);
+    return (['items' => $items, 'categories' => $categories, 'popularItems' => $popularItems, 'mostExpensiveItems' => $mostExpensiveItems]);
   }
 }

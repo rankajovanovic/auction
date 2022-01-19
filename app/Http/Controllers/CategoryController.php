@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class CategoryController extends Controller
 {
@@ -28,6 +29,10 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        $items = Item::where('category_id', $category->id)->get();
+        foreach ($items as $item) {
+            $item->delete();
+        }
         $category->delete();
         \Toastr::error('Category has been deleted', null, ["positionClass" => "toast-top-right"]);
 

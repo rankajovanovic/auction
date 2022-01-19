@@ -16,6 +16,12 @@ class CreateBidAction
       return;
     }
 
+    if (auth()->user()->id === $item->user_id) {
+      \Toastr::error('You cannot set a bid for your item', null, ["positionClass" => "toast-top-right"]);
+
+      return;
+    }
+
     if ($this->isBidHigherThenThePrice($item, $data)) {
 
       $data['item_id'] = $item->id;

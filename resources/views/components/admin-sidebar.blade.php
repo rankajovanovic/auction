@@ -17,7 +17,7 @@
       <span>Home</span></a>
   </li>
 
-  @if(auth()->user()->userHasRole('Admin'))
+  @if( auth()->user()->userHasRole('Admin') )
   <hr class="sidebar-divider">
 
   <!-- Heading -->
@@ -69,7 +69,7 @@
     <div id="collapseProfile" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Change your info:</h6>
-        <a class="collapse-item" href="{{ route('users.profile')}}">Profile</a>
+        <a class="collapse-item" href="{{ route('users.profile', auth()->user()->id)}}">Profile</a>
         <a class="collapse-item" href="{{ route('users.settings', auth()->user()->id)}}">Settings</a>
       </div>
     </div>

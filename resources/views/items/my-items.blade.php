@@ -13,6 +13,7 @@
               <th>Price</th>
               <th>Image</th>
               <th>Category</th>
+              <th>Number of bids</th>
               <th>Start date</th>
               <th>End time</th>
               <th>Del</th>
@@ -29,7 +30,7 @@
                 <img src="{{$item->image}}" alt="" style="width: 70px;">
               </td>
               <td>{{$item->category ? $item->category->name : 'Uncategorized'}}</td>
-
+              <td>{{count($item->bids)}}</td>
               <td>{{$item->created_at->format('Y-m-d')}}</td>
               <td data-countdown="{{ $item->end_time }}"></td>
               <td>
