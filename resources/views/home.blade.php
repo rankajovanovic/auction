@@ -1,6 +1,57 @@
 <x-auction-home>
   @section('content')
-  @if( isset($popularItems))
+  <h1 class="my-4">All items
+    <small>
+      @if(isset($category))
+      - {{$category->name}}
+      @endif
+    </small>
+  </h1>
+
+  <div class="row">
+    @foreach($items as $item)
+    <!-- Auction Post -->
+    <div class="col-xl-4 col-md-4 mb-4">
+      <div class="card shadow" style="height:auto">
+        <div class="" style="height:200px">
+          @if($item->image)
+          <img class="card-img-top img-fluid" src="{{$item->image}}" alt="Card image cap" style="max-height:200px">
+          @else
+          <img class="card-img-top" src="http://placehold.it/150x150" alt="Card image cap" style="max-height:200px">
+          @endif
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{$item->name}}</h4>
+          <span>Price: ${{ $item->bids->isNotEmpty() ? $item->bids->max('price') : $item->price }}</span>
+          <hr class="sidebar-divider">
+          <span class="pr-2 text-danger"><small data-countdown="{{ $item->end_time }}"></small></span>
+          <a href="{{route('items.show', $item->slug )}}" class="btn btn-primary btn-sm">More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+          <small>
+            Posted on {{ $item->created_at->diffForHumans() }}
+            <br>
+            <!-- by
+            {{ !empty($item->user) ? $item->user->email : '' }} -->
+          </small>
+        </div>
+      </div>
+    </div>
+    @endforeach
+
+    @if(count($items) == 0)
+    <div>
+      There are no items to show in this view.
+    </div>
+    @endif
+  </div>
+  <!-- Pagination -->
+  <div class="main-navigation mt-4">
+    {{ $items->appends(request()->input())->links("pagination::bootstrap-4") }}
+  </div>
+  <hr>
+
+  @if( $popularItems->isNotEmpty() )
   <section class="pt-4 pb-4">
     <div class="container">
       <div class="row">
@@ -61,7 +112,7 @@
   </section>
   @endif
 
-  @if( isset($mostExpensiveItems))
+  @if( $mostExpensiveItems->isNotEmpty() )
   <section class="pt-1 pb-1">
     <div class="container">
       <div class="row">
@@ -117,57 +168,6 @@
     </div>
   </section>
   @endif
-  <hr>
-  <h1 class="my-4">All items
-    <small>
-      @if(isset($category))
-      - {{$category->name}}
-      @endif
-    </small>
-  </h1>
-
-  <div class="row">
-    @foreach($items as $item)
-    <!-- Auction Post -->
-    <div class="col-xl-4 col-md-4 mb-4">
-      <div class="card shadow" style="height:auto">
-        <div class="" style="height:200px">
-          @if($item->image)
-          <img class="card-img-top img-fluid" src="{{$item->image}}" alt="Card image cap" style="max-height:200px">
-          @else
-          <img class="card-img-top" src="http://placehold.it/150x150" alt="Card image cap" style="max-height:200px">
-          @endif
-        </div>
-        <div class="card-body">
-          <h4 class="card-title">{{$item->name}}</h4>
-          <span>Price: ${{ $item->bids->isNotEmpty() ? $item->bids->max('price') : $item->price }}</span>
-          <hr class="sidebar-divider">
-          <span class="pr-2 text-danger"><small data-countdown="{{ $item->end_time }}"></small></span>
-          <a href="{{route('items.show', $item->slug )}}" class="btn btn-primary btn-sm">More &rarr;</a>
-        </div>
-        <div class="card-footer text-muted">
-          <small>
-            Posted on {{ $item->created_at->diffForHumans() }}
-            <br>
-            <!-- by
-            {{ !empty($item->user) ? $item->user->email : '' }} -->
-          </small>
-        </div>
-      </div>
-    </div>
-    @endforeach
-
-    @if(count($items) == 0)
-    <div>
-      There are no items to show in this view.
-    </div>
-    @endif
-  </div>
-
-  <!-- Pagination -->
-  <div class="main-navigation mt-4">
-    {{ $items->appends(request()->input())->links("pagination::bootstrap-4") }}
-  </div>
   @endsection
 
 

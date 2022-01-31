@@ -16,33 +16,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            CategorySeeder::class,
-        ]);
+        // $this->call([
+        //     CategorySeeder::class,
+        // ]);
 
-        $this->call([
-            RoleSeeder::class,
-        ]);
+        // $this->call([
+        //     RoleSeeder::class,
+        // ]);
 
-        $this->call([
-            AdminSeeder::class,
-        ]);
+        // $this->call([
+        //     AdminSeeder::class,
+        // ]);
 
-        \App\Models\User::factory(20)->create();
-        \App\Models\Item::factory(200)->create();
-        \App\Models\Bid::factory(500)->create();
+        // \App\Models\User::factory(20)->create();
+        \App\Models\Item::factory(50)->create();
+        \App\Models\Bid::factory(200)->create();
 
-        $roles = Role::all();
-        // Populate the pivot table
-        User::all()->each(function ($user) use ($roles) {
-            $user->roles()->attach(
-                $roles->random(rand(1, 1))
-            );
-        });
+        // $roles = Role::all();
+        // // Populate the pivot table
+        // User::all()->each(function ($user) use ($roles) {
+        //     $user->roles()->attach(
+        //         $roles->random(rand(1, 1))
+        //     );
+        // });
 
-        $admin = User::findOrFail(1);
-        $admin->roles()->detach();
+        // $admin = User::findOrFail(1);
+        // $admin->roles()->detach();
 
-        $admin->roles()->attach(Role::where('name', 'Admin')->first());
+        // $admin->roles()->attach(Role::where('name', 'Admin')->first());
     }
 }

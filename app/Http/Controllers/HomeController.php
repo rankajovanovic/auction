@@ -29,13 +29,11 @@ class HomeController extends Controller
         return view('home', ['items' => $data['items'], 'categories' => $data['categories'], 'popularItems' => $data['popularItems'], 'mostExpensiveItems' => $data['mostExpensiveItems']]);
     }
 
-    public function show($slug)
+    public function show(Request $request, $slug)
     {
-        $category = Category::findBySlugOrFail($slug);
-        $items = Item::where('category_id', $category->id)->where('active', 1)->orderByDesc('created_at')->paginate(9);
-        $categories = Category::orderBy('name')->get();
+        $data = $this->getActiveItemsAction->execute($request, $slug);
 
-        return view('home', ['items' => $items, 'categories' => $categories, 'category' => $category]);
+        return view('home', ['items' => $data['items'], 'categories' => $data['categories'], 'popularItems' => $data['popularItems'], 'mostExpensiveItems' => $data['mostExpensiveItems']]);
     }
 
     // public function search(Request $request)

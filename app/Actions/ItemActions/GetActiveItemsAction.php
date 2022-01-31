@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class GetActiveItemsAction
 {
-  public function execute(Request $request)
+  public function execute(Request $request, $slug = null)
   {
 
     $itemQuery = Item::query();
@@ -28,16 +28,21 @@ class GetActiveItemsAction
       });
     }
 
+    if ($slug !== null) {
+      $category = Category::findBySlugOrFail($slug);
+      $itemQuery->where('category_id', $category->id);
+    }
+
     $itemQuery->where('active', 1);
     $items = $itemQuery->orderByDesc('created_at')->paginate(9);
 
     $popularItems = Item::with('bids')
+      ->has('bids')
       ->where('active', 1)
       ->withCount('bids')
       ->orderBy('bids_count', 'desc')
       ->limit(9)
       ->get();
-    //dd($popularItems);
 
     $mostExpensiveItems = Item::with('bids')
       ->where('active', 1)
@@ -49,6 +54,8 @@ class GetActiveItemsAction
       ->get();
 
     $categories = Category::orderBy('name')->get();
+
+
 
     return (['items' => $items, 'categories' => $categories, 'popularItems' => $popularItems, 'mostExpensiveItems' => $mostExpensiveItems]);
   }

@@ -12,12 +12,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $countUsers = User::count();
-        $countItems = Item::count();
-        $countBids = Bid::count();
-        $countCategories = Category::count();
-
-        return view('admin.index', compact('countUsers', 'countItems', 'countBids', 'countCategories'));
+        return view('admin.index', compact(['countUsers' => User::count(), 'countItems' => Item::count(), 'countBids' => Bid::count(), 'countCategories' => Category::count()]));
     }
 
     public function getItems()
