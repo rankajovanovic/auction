@@ -47,7 +47,7 @@ class ItemController extends Controller
         $data = $request->validated();
         $data['end_time'] = Carbon::now()->addDays(10);
         auth()->user()->items()->create($data);
-        \Toastr::success('Item has been deleted', null, ["positionClass" => "toast-top-right"]);
+        \Toastr::success('Item has been created', null, ["positionClass" => "toast-top-right"]);
 
         return back();
     }
@@ -61,14 +61,13 @@ class ItemController extends Controller
     public function show($slug)
     {
         $item = Item::findBySlugOrFail($slug);
-        $categories = Category::orderBy('name')->get();
         $userBid = '';
         if (auth()->user()) {
             $userBid = Bid::where('item_id', '=', $item->id)
                 ->where('user_id', '=', auth()->user()->id)->first();
         }
 
-        return view('items.show', ['item' => $item, 'categories' => $categories, 'userBid' => $userBid]);
+        return view('items.show', ['item' => $item, 'categories' => Category::orderBy('name')->get(), 'userBid' => $userBid]);
     }
 
     /**

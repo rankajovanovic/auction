@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
-use App\Models\Category;
 use App\Actions\ItemActions\GetActiveItemsAction;
 
 class HomeController extends Controller
@@ -35,11 +33,4 @@ class HomeController extends Controller
 
         return view('home', ['items' => $data['items'], 'categories' => $data['categories'], 'popularItems' => $data['popularItems'], 'mostExpensiveItems' => $data['mostExpensiveItems']]);
     }
-
-    // public function search(Request $request)
-    // {
-    //     $data = $this->getActiveItemsAction->execute($request);
-
-    //     return view('home', ['items' => $data['items'], 'categories' => $data['categories']]);
-    // }
 }

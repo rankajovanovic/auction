@@ -135,7 +135,9 @@
             </div>
             <div class="card-body text-danger">
               <h4>${{ $item->bids->isNotEmpty() ? $item->bids->max('price') : $item->price }}</h4>
+              <small class="text-dark">current price</small>
             </div>
+
           </div>
         </div>
 
@@ -146,22 +148,29 @@
               PLACE BID
             </div>
             <div class="card-body">
+
               <form method="POST" action="{{route('bids.add', $item->id)}}">
                 @csrf
                 <div class="row">
                   <div class="col-xl-9">
+
                     <input type="number"
                       min="{{ $item->bids->isNotEmpty() ? $item->bids->max('price')+1 : $item->price+1}}" id="price"
-                      class="form-control @error('price') is-invalid @enderror"
-                      value="{{ $item->bids->isNotEmpty() ? $item->bids->max('price')+1 : $item->price+1}}"
-                      name="price" />
+                      class="form-control @error('price') is-invalid @enderror" value="" name="price" />
+
+                    <small class="text-white @error('price') text-danger @enderror">Enter
+                      ${{ $item->bids->isNotEmpty() ? $item->bids->max('price')+1 : $item->price+1}} or
+                      more</small>
+
                   </div>
                   <div class="col-xl-3">
+
                     <button type="submit" class="btn btn-warning" @if(Auth::check() && auth()->user()->id ==
                       $item->user_id)
                       disabled
                       @endif
                       >Add</button>
+
                   </div>
                 </div>
               </form>

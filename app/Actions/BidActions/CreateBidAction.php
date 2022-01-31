@@ -5,7 +5,6 @@ namespace App\Actions\BidActions;
 use App\Models\Item;
 use App\Models\Bid;
 
-
 class CreateBidAction
 {
   public function execute(Item $item,  $data)

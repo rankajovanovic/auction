@@ -1,0 +1,153 @@
+.shell,
+.shell-wide {
+    min-width: 300px;
+    max-width: 480px;
+}
+.shell,
+.shell-wide,
+.shell-fluid {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.range {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex: 0 1 auto;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+html.lt-ie-10 * + .range,
+* + .range {
+    margin-top: 30px;
+}
+.range {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.range > [class*="cell"] {
+    -ms-flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    max-width: 100%;
+}
+
+[class*="cell-"] {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.stepper {
+    position: relative;
+    display: inline-block;
+    max-width: 70px;
+    min-width: 220px;
+}
+.stepper input[type="number"] {
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 55px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.form-input {
+    display: block;
+    width: 100%;
+    min-height: 60px;
+    padding: 18px 25px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #2c2b30;
+    background-color: #f3f6fd;
+    background-image: none;
+    border: 0px solid #f3f6fd;
+    border-radius: 35px;
+    -webkit-appearance: none;
+}
+.stepper-arrow.up {
+    right: 28px;
+    text-align: left;
+}
+.stepper-arrow.down {
+    left: 19px;
+    text-align: right;
+}
+.stepper-arrow.up:before {
+    content: "\f504";
+}
+.stepper-arrow.down:before {
+    content: "\f465";
+}
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.stepper-arrow {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 28px;
+    font-family: "Material Design Icons";
+    cursor: pointer;
+    color: #ff3366;
+    transition: 0.3s all ease;
+}
+.stepper input[type="number"] {
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 55px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.form-input {
+    display: block;
+    width: 100%;
+    min-height: 60px;
+    padding: 18px 25px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #2c2b30;
+    background-color: #f3f6fd;
+    background-image: none;
+    border: 0px solid #f3f6fd;
+    border-radius: 35px;
+    -webkit-appearance: none;
+}
+.form-wrap-modern .stepper {
+	min-width: 100%;
+}
+
+.stepper {
+	position: relative;
+	display: inline-block;
+	max-width: 70px;
+	min-width: 220px;
+}
+
+.stepper input[type="number"] {/* width: 100%; *//* padding-left: 55px; *//* padding-right: 55;/* text-align: center; */enter;-moz-appearance: textfield;}
+
+.shop-input .stepper {
+	min-width: 130px;
+}
+
+.shop-input .stepper .stepper-arrow {
+	font-size: 22px;
+}

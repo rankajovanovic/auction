@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Brian2694\Toastr\Facades\Toastr;
 
 class BidRequest extends FormRequest
 {
@@ -26,5 +28,16 @@ class BidRequest extends FormRequest
         return [
             "price" => "required"
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $messages = $validator->messages();
+
+        foreach ($messages->all() as $message) {
+            toastr()->error($message, 'Error');
+        }
+
+        return $validator->errors()->all();
     }
 }

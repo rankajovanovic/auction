@@ -1,0 +1,53 @@
+.stepper {
+    position: relative;
+    display: inline-block;
+    max-width: 70px;
+    min-width: 220px;
+}
+.stepper input[type="number"] {
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 55px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+.stepper-arrow.up {
+    right: 28px;
+    text-align: left;
+}
+
+.stepper-arrow {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 28px;
+    font-family: "Material Design Icons";
+    cursor: pointer;
+    color: #ff3366;
+    transition: 0.3s all ease;
+}
+.stepper input[type="number"] {
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 55px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.form-input {
+    display: block;
+    width: 100%;
+    min-height: 60px;
+    padding: 18px 25px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #2c2b30;
+    background-color: #f3f6fd;
+    background-image: none;
+    border: 0px solid #f3f6fd;
+    border-radius: 35px;
+    -webkit-appearance: none;
+}
