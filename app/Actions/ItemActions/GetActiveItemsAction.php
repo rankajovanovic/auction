@@ -55,8 +55,6 @@ class GetActiveItemsAction
 
     $categories = Category::orderBy('name')->get();
 
-
-
     return (['items' => $items, 'categories' => $categories, 'popularItems' => $popularItems, 'mostExpensiveItems' => $mostExpensiveItems]);
   }
 }

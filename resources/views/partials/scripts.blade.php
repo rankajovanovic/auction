@@ -1,8 +1,8 @@
  <!-- jQuery -->
- <!-- <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script> -->
- <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+ <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 
- <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+ <!-- <script src="{{asset('js/toastr.min.js')}}"></script> -->
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
  <!-- Bootstrap Core JavaScript -->
  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

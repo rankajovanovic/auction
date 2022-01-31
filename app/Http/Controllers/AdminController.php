@@ -12,7 +12,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.index', compact(['countUsers' => User::count(), 'countItems' => Item::count(), 'countBids' => Bid::count(), 'countCategories' => Category::count()]));
+        return view('admin.index')->with(['countUsers' => User::count(), 'countItems' => Item::count(), 'countBids' => Bid::count(), 'countCategories' => Category::count()]);
     }
 
     public function getItems()
@@ -34,7 +34,7 @@ class AdminController extends Controller
     public function detach(User $user)
     {
         $user->roles()->detach(request('role'));
-        \Toastr::success('Role detached', null, ["positionClass" => "toast-top-right"]);
+        \Toastr::error('Role detached', null, ["positionClass" => "toast-top-right"]);
 
         return back();
     }
